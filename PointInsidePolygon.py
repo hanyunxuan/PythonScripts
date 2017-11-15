@@ -6,6 +6,6 @@ bbPath = mplPath.Path(np.array([[poly[0], poly[1]],
                      [poly[1], poly[2]],
                      [poly[2], poly[3]],
                      [poly[3], poly[0]]]))
-
-if bbPath.contains_point((200, 100)):
-    print(1)
+print(bbPath)
+# if bbPath.contains_point((200, 100)):
+#     print(1)
