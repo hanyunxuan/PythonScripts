@@ -11,7 +11,7 @@
 import peewee
 from peewee import *
 
-db = MySQLDatabase('mathematicalmodel', user='root', passwd='123456')
+db = MySQLDatabase('alldata', user='root', passwd='123456')
 
 
 class Book(peewee.Model):
@@ -27,3 +27,4 @@ book = Book(author="me", title='Peewee is cool')
 book.save()
 for book in Book.filter(author="me"):
     print(book.title)
+book = ['book1', 'book2', 'book3']
