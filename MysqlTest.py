@@ -11,20 +11,25 @@
 import peewee
 from peewee import *
 
-db = MySQLDatabase('alldata', user='root', passwd='123456')
+db = MySQLDatabase('trux', user='root', passwd='123456')
 
 
-class Book(peewee.Model):
+class Book1(peewee.Model):
     author = peewee.CharField()
     title = peewee.TextField()
+    age = peewee.IntegerField()
 
     class Meta:
         database = db
 
 
-Book.create_table()
-book = Book(author="me", title='Peewee is cool')
+Book1.create_table()
+a = "me,me1"
+b = 'Peewee is cool,socool'
+c = 2,3
+for i in range(2):
+    book = Book1(author=a[i],title=b[i],age=c[i])
 book.save()
-for book in Book.filter(author="me"):
-    print(book.title)
-book = ['book1', 'book2', 'book3']
+# for book in Book.filter(author="me"):
+#     print(book.title)
+# book = ['book1', 'book2', 'book3']
