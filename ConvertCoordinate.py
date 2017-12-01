@@ -1,3 +1,8 @@
+"""
+deg2deg_min_sec:input degree ,output degree minute second
+deg_min_sec2deg:input degree minute second ,output degree
+"""
+
 from math import *
 
 
@@ -12,8 +17,9 @@ def deg2deg_min_sec(input_number=0.0):
     seconds = minutes % 1.0 * 60
 
     # return '\n%s°%s\'%s"\n' % (int(floor(input_number)), int(floor(minutes)), seconds)
-    output_number=int(floor(input_number)) * 10000 + int(floor(minutes)) * 100 + int(floor(seconds))
+    output_number = int(floor(input_number)) * 10000 + int(floor(minutes)) * 100 + int(floor(seconds))
     return output_number
+
 
 def deg_min_sec2deg(input_number=0):
     if type(input_number) != 'int':

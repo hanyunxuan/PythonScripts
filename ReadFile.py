@@ -1,7 +1,9 @@
+"""
+output:file name
+"""
 import os
 
-# file_suffix=".xls"
-# directory = 'E:\AllProjectNew\MathematicalModelCompetition\PeakAndBowl'
+
 def read_file_name(directory,file_suffix):
     file_name = []
     for filename in os.listdir(directory):
@@ -12,4 +14,6 @@ def read_file_name(directory,file_suffix):
             continue
     return file_name
 
-
+if __name__ == '__main__':
+    file_suffix=".xls"
+    directory = 'E:\AllProjectNew\MathematicalModelCompetition\PeakAndBowl'

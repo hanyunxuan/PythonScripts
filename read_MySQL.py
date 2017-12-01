@@ -1,3 +1,6 @@
+"""
+
+"""
 import pymysql
 
 db = pymysql.connect("localhost", "root", "123456", "mathematicalmodel")
