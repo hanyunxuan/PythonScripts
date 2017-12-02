@@ -10,7 +10,7 @@
 # LpStatus[status]
 # value(x)
 
-# Import PuLP modeler functions
+# https://github.com/coin-or/pulp/tree/master/examples
 
 
 # A new LP problem
