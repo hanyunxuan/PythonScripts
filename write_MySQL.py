@@ -4,7 +4,7 @@
 
 import pymysql
 
-db = pymysql.connect("localhost", "root", "123456", "trux")
+db = pymysql.connect("localhost", "root", "1111111", "database")
 cursor = db.cursor()
 cursor.execute("DROP TABLE IF EXISTS AGE")
 

@@ -1,5 +1,5 @@
 import xlrd
-from PythonScripts.ReadFile import read_file_name
+from PythonScripts.read_file import read_file_name
 import os
 import pymysql
 

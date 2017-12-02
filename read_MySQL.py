@@ -3,7 +3,7 @@
 """
 import pymysql
 
-db = pymysql.connect("localhost", "root", "123456", "mathematicalmodel")
+db = pymysql.connect("localhost", "root", "111111", "database")
 cursor = db.cursor()
 query = ('select Longitude, Latitude from polygon1')
 cursor.execute(query)

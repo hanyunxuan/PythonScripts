@@ -31,14 +31,17 @@ def judge_point(point_x, point_y, polygon_x, polygon_y):
 
 
 if __name__ == '__main__':
-    from PythonScripts.ReadFile import read_file_name
     import xlrd
+    import os
+    import glob
 
-    file_suffix = ".xls"
-    directory = 'E:\WorkPlace\Git\python36\PythonScripts'
-    All_file = read_file_name(directory, file_suffix)
-    workbook = xlrd.open_workbook(All_file[0])
-    sheet1 = workbook.sheet_by_index(0)  # sheet索引从0开始
+    os.chdir('E:\WorkPlace\Git\python36\PythonScripts')
+    FileList = glob.glob('polygon1.xls')
+    # file_suffix = ".xls"
+    # directory = 'E:\WorkPlace\Git\python36\PythonScripts'
+    # All_file = read_file_name(directory, file_suffix)
+    workbook = xlrd.open_workbook(FileList[0])
+    sheet1 = workbook.sheet_by_index(0)
     cols0 = sheet1.col_values(0)
     cols1 = sheet1.col_values(1)
     num_row = 1770
@@ -53,4 +56,6 @@ if __name__ == '__main__':
         Coordinate_x[i, 0] = x0 - (x_length / num_col) * i
     for i in range(num_row):
         Coordinate_y[i, 0] = y0 + (y_length / num_row) * i
-    judge_point(Coordinate_x, Coordinate_y, cols0, cols1)
+    [list_x,list_y]=judge_point(Coordinate_x, Coordinate_y, cols0, cols1)
+    for i in range(len(list_x)):
+        print(list_x[i], '--', list_y[i])
