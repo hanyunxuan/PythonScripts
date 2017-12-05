@@ -6,7 +6,7 @@ import pymysql
 
 db = pymysql.connect("localhost", "root", "1111111", "database")
 cursor = db.cursor()
-cursor.execute("DROP TABLE IF EXISTS AGE")
+cursor.execute("DROP TABLE IF EXISTS TableName")
 
 sql = """CREATE TABLE TableName (
          age1 INT,

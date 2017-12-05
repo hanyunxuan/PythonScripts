@@ -1,91 +1,21 @@
-
-import requests
-from lxml import etree
-import pymongo
+from selenium import webdriver
 import time
-
-client = pymongo.MongoClient('localhost', 27017)
-qiushi = client['qiushi']
-qiushi_info = qiushi['qiushi_info']
-user_info = qiushi['user_info']
-
-header = {
-    'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
-}
-
-def get_info(url):
-    html = requests.get(url,headers=header)
-    selector = etree.HTML(html.text)
-    infos = selector.xpath('//div[@class="col1"]/div')
-    base_url = 'https://www.qiushibaike.com'
-    for info in infos:
-        id = info.xpath('div[1]/a[2]/h2/text()')[0] if len(info.xpath('div[1]/a[2]/h2/text()'))==1 else '匿名用户'
-        jug_sex = info.xpath('div[1]/div/@class')
-        if len(jug_sex)==0:
-            sex = '不详'
-            age = '不详'
-        elif jug_sex[0]=='articleGender manIcon':
-            sex = '男'
-            age = info.xpath('div[1]/div/text()')[0]
-        else:
-            sex = '女'
-            age = info.xpath('div[1]/div/text()')[0]
-        content = info.xpath('a[1]/div/span[1]/text()')[0]
-        laugh = info.xpath('div[2]/span[1]/i/text()')[0]
-        comment = info.xpath('div[2]/span[2]/a/i/text()')[0] if info.xpath('div[2]/span[2]/a/i/text()') else None
-        user_url = base_url + info.xpath('div[1]/a[2]/@href')[0] if info.xpath('div[1]/a[2]/@href') else None
-        data ={
-            'id':id,
-            'sex':sex,
-            'age':age,
-            'laugh':laugh,
-            'comment':comment,
-            'user_url':user_url,
-            'content':content
-        }
-        qiushi_info.insert_one(data)
-        if user_url == None:
-            pass
-        else:
-            get_user_info(user_url)
-    time.sleep(1)
-
-def get_user_info(url):
-    html = requests.get(url,headers=header)
-    selector = etree.HTML(html.text)
-    if selector.xpath('//div[@class="user-block user-setting clearfix"]'):
-        pass
-    else:
-        fans = selector.xpath('//div[2]/div[3]/div[1]/ul/li[1]/text()')[0] if selector.xpath('//div[2]/div[3]/div[1]/ul/li[1]/text()') else None
-        topic = selector.xpath('//div[2]/div[3]/div[1]/ul/li[2]/text()')[0] if selector.xpath('//div[2]/div[3]/div[1]/ul/li[2]/text()') else None
-        qiushi = selector.xpath('//div[2]/div[3]/div[1]/ul/li[3]/text()')[0] if selector.xpath('//div[2]/div[3]/div[1]/ul/li[3]/text()') else None
-        comment_1 = selector.xpath('//div[2]/div[3]/div[1]/ul/li[4]/text()')[0] if selector.xpath('//div[2]/div[3]/div[1]/ul/li[4]/text()') else None
-        favour = selector.xpath('//div[2]/div[3]/div[1]/ul/li[5]/text()')[0] if selector.xpath('//div[2]/div[3]/div[1]/ul/li[5]/text()') else None
-        handpick = selector.xpath('//div[2]/div[3]/div[1]/ul/li[6]/text()')[0] if selector.xpath('//div[2]/div[3]/div[1]/ul/li[6]/text()') else None
-        martial_status = selector.xpath('//div[2]/div[3]/div[2]/ul/li[1]/text()')[0] if selector.xpath('//div[2]/div[3]/div[2]/ul/li[1]/text()') else '不详'
-        constellation = selector.xpath('//div[2]/div[3]/div[2]/ul/li[2]/text()')[0] if selector.xpath('//div[2]/div[3]/div[2]/ul/li[2]/text()') else '不详'
-        profession = selector.xpath('//div[2]/div[3]/div[2]/ul/li[3]/text()')[0] if selector.xpath('//div[2]/div[3]/div[2]/ul/li[3]/text()') else '不详'
-        home = selector.xpath('//div[2]/div[3]/div[2]/ul/li[4]/text()')[0] if selector.xpath('//div[2]/div[3]/div[2]/ul/li[4]/text()') else '不详'
-        qiushi_age = selector.xpath('//div[2]/div[3]/div[2]/ul/li[5]/text()')[0] if selector.xpath('//div[2]/div[3]/div[2]/ul/li[5]/text()') else '不详'
-        # print(fans,topic,qiushi,comment_1,favour,handpick,martial_status,constellation,profession,home,qiushi_age)
-        data ={
-            'fans':fans,
-            'topic':topic,
-            'qiushi':qiushi,
-            'comment_1':comment_1,
-            'favour':favour,
-            'handpick':handpick,
-            'martial_status':martial_status,
-            'constellation':constellation,
-            'profession':profession,
-            'home':home,
-            'qiushi_age':qiushi_age,
-            'user_url':url
-        }
-        user_info.insert_one(data)
+from bs4 import BeautifulSoup
 
 
-if __name__ == '__main__':
-    urls = ['https://www.qiushibaike.com/text/page/{}/'.format(str(i)) for i in range(1,36)]
-    for url in urls:
-        get_info(url)
+driver=webdriver.Chrome("D:/ChromeDriver/chromedriver.exe")                #用chrome浏览器打开
+driver.get("http://www.zhihu.com")       #打开知乎我们要登录
+time.sleep(2)                            #让操作稍微停一下
+driver.find_element_by_link_text('登录').click() #找到‘登录’按钮并点击
+time.sleep(2)
+#找到输入账号的框，并自动输入账号 这里要替换为你的登录账号
+driver.find_element_by_name('account').send_keys('18761686550')
+time.sleep(2)
+#密码，这里要替换为你的密码
+driver.find_element_by_name('password').send_keys('qianxin954')
+time.sleep(2)
+#输入浏览器中显示的验证码，这里如果知乎让你找烦人的倒立汉字，手动登录一下，再停止程序，退出#浏览器，然后重新启动程序，直到让你输入验证码
+yanzhengma=input('验证码:')
+driver.find_element_by_name('captcha').send_keys(yanzhengma)
+#找到登录按钮，并点击
+driver.find_element_by_css_selector('div.button-wrapper.command > button').click()
