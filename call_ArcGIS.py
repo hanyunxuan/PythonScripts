@@ -1,3 +1,7 @@
+"""
+author:hanyunxuan
+date:2018.3.29
+"""
 import arcpy
 mxd = arcpy.mapping.MapDocument(r"H:\map2.mxd")
 df  = arcpy.mapping.ListDataFrames(mxd)[0]
