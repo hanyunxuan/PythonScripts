@@ -2,9 +2,9 @@ import glob
 import os
 import xlrd
 
-os.chdir('E:\AmericanData')
+os.chdir('E:\\2016年9月')
 # FileList = glob.glob('*.xlsx')
-FileList = glob.glob('DeleteData.xlsx')
+FileList = glob.glob('9月9号.xlsx')
 # print(FileList)
 workbook = xlrd.open_workbook(FileList[0])
 sheet1 = workbook.sheet_by_index(0)

@@ -36,6 +36,7 @@ def deg_min_sec2deg(input_number=0):
     minute = int(tem[-4] + tem[-3])
     degress = int(tem[:-4])
     output_number = degress + minute / 60 + second / 3600
+
     return output_number
 
 
@@ -70,4 +71,5 @@ if __name__ == '__main__':
 
     print('转换前========================', '\n', df1, '\n', '转换后===========================', '\n', df2, '\n', '边界范围',
           '\n', max(df2.Longitude), max(df2.Latitude), '\n', min(df2.Longitude), min(df2.Latitude))
+
 
